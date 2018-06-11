@@ -1,0 +1,35 @@
+#
+# Quelle: https://www.youtube.com/watch?v=3VHgmB0SPxQ 
+#
+
+
+#
+# Erstellen von 2 Nodes die miteinander gegenseitig verbunden sind:
+#
+create (x:Person {name:’Peter’}) – [:TEAM_MEMBER_OF] -> (y:Person {name:’Fabio’}) – [BOSS_OF] -> (x)
+return x,y
+
+
+#
+# Suchen eines bestehenden Nodes, Erstellen einer Verbindung zu einem neuen Nodes:
+#
+match (x:Person {name:’Fabio’}) 
+create (x) – [:TEAM_MEMBER_OF] -> (y:Person {name:’Dordaneh’})
+return x,y 
+
+
+#
+# Verbinden von zwei vorhandenen Nodes:
+#
+match (x:Person {name:’Dordaneh’}), match(y:Person {name:’Fabio’})
+create (x) – [:BOSS_OF] -> (y)
+return x,y 
+
+
+
+#
+# Anzeigen aller «Boss»-Beziehungen:
+#
+match (x) – [:BOSS_OF] – (y)
+return x,y 
+
