@@ -6,25 +6,25 @@
 #
 # Erstellen von 2 Nodes die miteinander gegenseitig verbunden sind:
 #
-create (x:Person {name:’Peter’}) – [:TEAM_MEMBER_OF] -> (y:Person {name:’Fabio’}) – [BOSS_OF] -> (x)
+create (x:Person {name:"Peter"}) – [:TEAM_MEMBER_OF] -> (y:Person {name:"Fabio"}) – [:BOSS_OF] -> (x)
 return x,y
 
 
 #
 # Suchen eines bestehenden Nodes, Erstellen einer Verbindung zu einem neuen Nodes:
 #
-match (x:Person {name:’Fabio’}) 
-create (x) – [:TEAM_MEMBER_OF] -> (y:Person {name:’Dordaneh’})
+match (x:Person {name:"Fabio"}) 
+create (x) – [:TEAM_MEMBER_OF] -> (y:Person {name:"Dordaneh"})
 return x,y 
 
 
 #
 # Verbinden von zwei vorhandenen Nodes:
 #
-match (x:Person {name:’Dordaneh’}), match(y:Person {name:’Fabio’})
+match (x:Person {name:"Dordaneh"})
+match (y:Person {name:"Fabio"})
 create (x) – [:BOSS_OF] -> (y)
 return x,y 
-
 
 
 #
@@ -32,4 +32,33 @@ return x,y
 #
 match (x) – [:BOSS_OF] – (y)
 return x,y 
+
+
+#
+# Erstellen eines neuen Nodes und diesen gegenseitig verbinden mit bestehendem Node:
+#
+match (x:Person {name:"Fabio"})
+create (y:Person {name:"Mark"}) – [:TEAM_MEMBER_OF] -> (x) – [:BOSS_OF] -> (y)
+return x,y
+
+
+#
+# Von wem ist Fabio der Boss:
+#
+match (y:Person {name:"Fabio"})
+match (x) <– [:BOSS_OF] - (y)
+return x
+
+
+#
+# Wer ist der Boss von Fabio:
+#
+match (y:Person {name:"Fabio"})
+match (x) – [:BOSS_OF] -> (y)
+return x
+
+
+#
+#
+#
 
