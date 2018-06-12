@@ -59,6 +59,28 @@ return x
 
 
 #
+# Löschen einer konkreten Beziehung zwischen zwei konkreten Nodes:
 #
+match (:Person {name:"Fabio"}) - [r:TEAM_MEMBER_OF] -> (:Person {name:"Dordaneh"})
+delete r 
+
+match (:Person {name:"Fabio"}) <- [r:BOSS_OF] - (:Person {name:"Dordaneh"})
+delete r 
+
+
 #
+# Löschen der ganzen Datenbank:
+#
+match (n)
+detach delete n 
+
+
+#
+# Löschen eines doppelten Nodes mit all seinen Beziehungen:
+#
+MATCH (p:Person {name:"Dordaneh"})
+WITH p.id as id, collect(p) AS nodes 
+WHERE size(nodes) >  1
+FOREACH (p in tail(nodes) | DETACH DELETE p)
+
 
