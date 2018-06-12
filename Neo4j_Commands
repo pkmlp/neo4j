@@ -84,3 +84,36 @@ WHERE size(nodes) >  1
 FOREACH (p in tail(nodes) | DETACH DELETE p)
 
 
+#
+# Umbenennen eines Nodes:
+#
+MATCH (p { name: 'Peter' })
+SET p.name = 'Kessler'
+RETURN p 
+
+
+
+#
+# Backup / Restore : A Neo4j database can be dumped and loaded using the following commands:
+#
+sudo -u neo4j 
+neo4j-admin dump --database=<database> --to=<destination-path>
+neo4j-admin load --from=<archive-path> --database=<database> [--force]
+#
+# Limitations
+#
+#     - The database should be shutdown before running the dump and load commands.
+#
+# Examples of usage
+#
+#     - Moving databases from one environment to another.
+#
+#              Using the dump and load commands is the recommended, and safe, way of  
+#              transferring databases between environments.They understand which files 
+#              need to be exported and imported and which should not.
+#
+#              By contrast, file system copy-and-paste of databases is not supported.
+#
+#
+
+
