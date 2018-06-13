@@ -1,0 +1,62 @@
+#
+# Vorlage für die Erfassung eines IT Service in http://www.apcjones.com/arrows/#
+#
+#     Doppelklich auf den Node im Browser-GUI
+#
+#         In "Caption" IT Service eingeben.
+#         In "Properties" Untenstehenden Code eingeben.
+#
+#
+#
+
+name: "IT Shop"
+group: "Software und Business Applikationen"
+description:"Das zentrale Portal um IT Dienstleistungen in Selbstbedienung zu beziehen und zu verwalten."
+owner:"Consani Fabio"
+category:"grün"
+class: "IT Service"
+status:"Aktiv"
+exposure:"public ETH (B2C)"
+included:{"ETH-Student", "ETH-Employee", "ETH-Related"}
+maturity:"2.) Partially documented, partially monitored" 
+lastReview;""
+firstLevelSupport:"Service Desk"
+secondLevelSupport:"Signer Paul"
+thirdLevelSupport:"itNetX"
+
+
+
+#
+# Auswahl(en)
+#
+
+Optionen:
+    category
+        grün
+        weiss
+        rot
+        blau
+    class
+        IT Service
+        Consulting
+        Production
+    status
+        Aktiv
+        Phase out
+        Deprecated
+        coming soon
+    exposure
+        public ETH (B2C)
+        internal ETH (B2B)
+        Supporting Service
+    maturity
+        1.) Partially documented, best effort
+        2.) Partially documented, partially monitored
+        3.) Fully documented, partially monitored
+        4.) Fully documented, monitored and managed
+    included:
+        ETH-Student
+        ETH-Employee 
+        ETH-Related
+        ETH-Guest
+

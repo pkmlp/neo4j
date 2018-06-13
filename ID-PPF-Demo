@@ -1,0 +1,39 @@
+#
+# Untensthender Code kann im Online-Tool (http://www.apcjones.com/arrows/#)
+# in "Export Markup" einkopiert (alles bestehende mit diesem Code ersetzen)
+# und dann weiter bearbeitet werden. Nach Ende der Arbeit kann der Code aus
+# "Export Cypher" wieder in Neo4j ausgeführt werden und der Graph ist wieder
+# vorhanden (alter Graph vorher löschen).
+#
+
+
+<ul class="graph-diagram-markup" data-internal-scale="1" data-external-scale="1">
+  <li class="node" data-node-id="0" data-x="194" data-y="-120">
+    <span class="caption">Sektionsleitung</span><dl class="properties"><dt>sektion</dt><dd>"ID-PPF"</dd><dt>name</dt><dd>"Dordaneh"</dd></dl></li>
+  <li class="node" data-node-id="1" data-x="4" data-y="32">
+    <span class="caption">Gruppenleitung</span><dl class="properties"><dt>gruppe</dt><dd>"Portfolio Management"</dd><dt>name</dt><dd>"Fabio"</dd></dl></li>
+  <li class="node" data-node-id="2" data-x="367" data-y="59">
+    <span class="caption">Gruppenleitung</span><dl class="properties"><dt>gruppe</dt><dd>"Contract Management"</dd><dt>name</dt><dd>"Jürg"</dd></dl></li>
+  <li class="node" data-node-id="3" data-x="4" data-y="235">
+    <span class="caption">Mitarbeiter</span><dl class="properties"><dt>name</dt><dd>"Peter"</dd></dl></li>
+  <li class="node" data-node-id="4" data-x="-89" data-y="235">
+    <span class="caption">Mitarbeiter</span><dl class="properties"><dt>name</dt><dd>"Mark"</dd></dl></li>
+  <li class="node" data-node-id="5" data-x="118" data-y="212">
+    <span class="caption">Mitarbeiter</span><dl class="properties"><dt>name</dt><dd>"Paul"</dd></dl></li>
+  <li class="relationship" data-from="1" data-to="0">
+    <span class="type">REPORTS_TO</span>
+  </li>
+  <li class="relationship" data-from="2" data-to="0">
+    <span class="type">REPORTS_TO</span>
+  </li>
+  <li class="relationship" data-from="3" data-to="1">
+    <span class="type">REPORTS_TO</span>
+  </li>
+  <li class="relationship" data-from="4" data-to="1">
+    <span class="type">REPORTS_TO</span>
+  </li>
+  <li class="relationship" data-from="5" data-to="1">
+    <span class="type">REPORTS_TO</span>
+  </li>
+</ul>
+
