@@ -10,4 +10,13 @@
 #
 
 
-
+CREATE 
+    (component:`Component` 
+        {
+            name:"www.itshop.ethz.ch",
+            service:"IT Shop",
+            group:"Software und Business Applikationen",
+            description:"Shop Landing Page",
+            responsible:"Consani Fabio"
+        }
+    ) 

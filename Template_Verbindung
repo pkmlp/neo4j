@@ -1,0 +1,10 @@
+#
+# Vorlage für das Verbinden von zwei vorhandenen Nodes:
+#
+
+
+match (x:`IT Service` {name:"IT Shop"})
+match (y:`Component` {name:"www.itshop.ethz.ch"})
+create (x) – [:DEPENDS_ON] -> (y)
+return x,y 
+

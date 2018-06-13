@@ -31,7 +31,7 @@ thirdLevelSupport:"itNetX"
 #
 
 CREATE 
-    (:`IT Service` 
+    (service:`IT Service` 
         {
             name:"IT Shop",
             group:"Software und Business Applikationen",
