@@ -1,12 +1,10 @@
 #
-# Vorlage für die Erfassung eines IT Service in http://www.apcjones.com/arrows/#
+# Arrow-Vorlage für die Erfassung eines IT Service in http://www.apcjones.com/arrows/#
 #
 #     Doppelklich auf den Node im Browser-GUI
 #
 #         In "Caption" IT Service eingeben.
-#         In "Properties" Untenstehenden Code eingeben.
-#
-#
+#         In "Properties" untenstehenden Code eingeben.
 #
 
 name: "IT Shop"
@@ -26,8 +24,35 @@ thirdLevelSupport:"itNetX"
 
 
 
+
 #
-# Auswahl(en)
+# Cypher-Vorlage für die Erfassung eines IT Service Neo4j
+#
+#
+
+CREATE 
+    (:`IT Service` 
+        {
+            name:"IT Shop",
+            group:"Software und Business Applikationen",
+            description:"Das zentrale Portal um IT Dienstleistungen in Selbstbedienung zu beziehen und zu verwalten.",
+            owner:"Consani Fabio",
+            category:"grün",
+            class:"IT Service",
+            status:"Aktiv",
+            exposure:"public ETH (B2C)",
+            included:'{"ETH-Student", "ETH-Employee", "ETH-Related"}',
+            maturity:"2.) Partially documented, partially monitored",
+            firstLevelSupport:"Service Desk",
+            secondLevelSupport:"Signer Paul",
+            thirdLevelSupport:"itNetX"
+        }
+    ) 
+
+
+
+#
+# Auswahl Optionen - in obenstehende Command-Templates übertragen
 #
 
 Optionen:
@@ -59,4 +84,3 @@ Optionen:
         ETH-Employee 
         ETH-Related
         ETH-Guest
-
