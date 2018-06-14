@@ -1,6 +1,11 @@
 #
-# Quelle: https://www.youtube.com/watch?v=3VHgmB0SPxQ 
+# Creating nodes and relationships in Neo4j: https://www.youtube.com/watch?v=3VHgmB0SPxQ 
+# Intro to Cypher: https://www.youtube.com/watch?v=1TSBXZMv6tc&t=64s 
+# Quickly create example graph data for Neo4j using Arrows: https://www.youtube.com/watch?v=fkD1agLtQ4I 
 #
+# Arrows: http://www.apcjones.com/arrows/ 
+#
+
 
 
 #
@@ -8,6 +13,13 @@
 #
 create (x:Person {name:"Peter"}) – [:TEAM_MEMBER_OF] -> (y:Person {name:"Fabio"}) – [:BOSS_OF] -> (x)
 return x,y
+
+
+
+#
+# Die Anzahl bestehender Nodes ausgeben:
+#
+match (n) return count(n)
 
 
 #
