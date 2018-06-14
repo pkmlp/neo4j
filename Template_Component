@@ -1,5 +1,6 @@
 #
-# Vorlage für die Erfassung einer Service-Komponente für einen IT Service in http://www.apcjones.com/arrows/#
+# Arrow-Vorlage für die Erfassung eine Komponente eines IT Service
+#     Link zu Arrows: http://www.apcjones.com/arrows/#
 #
 #     Doppelklich auf den Node im Browser-GUI
 #
@@ -8,8 +9,18 @@
 #
 #
 #
+name:"www.itshop.ethz.ch"
+service:"IT Shop"
+group:"Software und Business Applikationen"
+description:"Shop Landing Page"
+responsible:"Consani Fabio"
 
 
+
+#
+# Cypher-Vorlage für die Erfassung eines IT Service in Neo4j
+#
+#
 CREATE 
     (component:`Component` 
         {
