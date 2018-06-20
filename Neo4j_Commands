@@ -129,3 +129,70 @@ neo4j-admin load --from=<archive-path> --database=<database> [--force]
 #
 
 
+
+
+#
+# CSV Import (The file URLs are relative to the import directory)
+#
+#     Import-Directory: /home/pkmlp/.config/Neo4j%20Desktop/Application/neo4jDatabases/database-902f7616-0421-4423-82d3-b4df46975ad3/installation-3.3.4/import/
+#
+
+#
+# Schritt 1: Mit dem Export des ComponentCatalog aus Sherlock werden alle Komponeten erfasst
+#
+CREATE CONSTRAINT ON (c:Complaint) ASSERT c.ComponentName IS UNIQUE;
+LOAD CSV WITH HEADERS FROM "file:////ComponentCatalog.csv" AS csvLine FIELDTERMINATOR ';' 
+MERGE (c:Component { name: csvLine.ComponentName, 
+                     ServiceGroup: csvLine.ServiceGroup, 
+                     ServiceName: csvLine.ServiceName, 
+                     ServiceID: toInteger(csvLine.ServiceID), 
+                     ComponentName: csvLine.ComponentName, 
+                     ComponentID: toInteger(csvLine.ComponentID) });
+
+#
+# Schritt 2: Mit dem Export des ComponentCatalog aus Sherlock werden alle Public Services erfasst
+#            --> Jede Komponente ist einem Service zugeordnet
+#
+CREATE CONSTRAINT ON (s:Complaint) ASSERT s.ServiceName IS UNIQUE;
+LOAD CSV WITH HEADERS FROM "file:////ComponentCatalog.csv" AS csvLine FIELDTERMINATOR ';' 
+WITH csvLine
+WHERE csvLine.ServiceGroup <> "Supporting Service" 
+MERGE (s:Service { name: csvLine.ServiceName, 
+                     ServiceGroup: csvLine.ServiceGroup, 
+                     ServiceName: csvLine.ServiceName, 
+                     ServiceID: toInteger(csvLine.ServiceID) });
+
+#
+# Schritt 3: Mit dem Export des ComponentCatalog aus Sherlock werden alle Supporting Services erfasst
+#            --> Jede Komponente ist einem Service zugeordnet
+#
+CREATE CONSTRAINT ON (s:Complaint) ASSERT s.ServiceName IS UNIQUE;
+LOAD CSV WITH HEADERS FROM "file:////ComponentCatalog.csv" AS csvLine FIELDTERMINATOR ';'
+WITH csvLine
+WHERE csvLine.ServiceGroup = "Supporting Service" 
+MERGE (s:SupportingService { name: csvLine.ServiceName, 
+                     ServiceGroup: csvLine.ServiceGroup, 
+                     ServiceName: csvLine.ServiceName, 
+                     ServiceID: toInteger(csvLine.ServiceID) });
+
+                     
+
+#
+# Anzeigen von Services resp. Components
+#
+#
+
+match(c:Component) return c
+
+match (s:Service)
+where s.ServiceName CONTAINS 'Net'
+return s;
+
+match (s:Service)
+where s.ServiceName STARTS WITH 'Net'
+return s;
+
+match (s:Service)
+where s.ServiceName ENDS WITH 'Net'
+return s;
+
