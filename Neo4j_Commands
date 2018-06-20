@@ -138,7 +138,7 @@ neo4j-admin load --from=<archive-path> --database=<database> [--force]
 #
 
 #
-# Schritt 1: Mit dem Export des ComponentCatalog aus Sherlock werden alle Komponeten erfasst
+# Schritt 1: Mit dem Export des ComponentCatalog aus Sherlock werden alle Komponenten erfasst
 #
 CREATE CONSTRAINT ON (c:Complaint) ASSERT c.ComponentName IS UNIQUE;
 LOAD CSV WITH HEADERS FROM "file:////ComponentCatalog.csv" AS csvLine FIELDTERMINATOR ';' 
@@ -175,6 +175,16 @@ MERGE (s:SupportingService { name: csvLine.ServiceName,
                      ServiceName: csvLine.ServiceName, 
                      ServiceID: toInteger(csvLine.ServiceID) });
 
+#
+# Alternative: Mit dem Export des ComponentCatalog aus Sherlock werden alle Services erfasst
+#              --> Keine Unterscheidung Supporting Services <-> Public Services
+#
+CREATE CONSTRAINT ON (s:Complaint) ASSERT s.ServiceName IS UNIQUE;
+LOAD CSV WITH HEADERS FROM "file:////ComponentCatalog.csv" AS csvLine FIELDTERMINATOR ';'
+MERGE (s:SupportingService { name: csvLine.ServiceName, 
+                     ServiceGroup: csvLine.ServiceGroup, 
+                     ServiceName: csvLine.ServiceName, 
+                     ServiceID: toInteger(csvLine.ServiceID) });
                      
 
 #
