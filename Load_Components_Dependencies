@@ -20,16 +20,18 @@
 #     --> Lasche Terminal : mit pwd das Directory der Datenbank anzeigen  
 #
 #
-# Soll ein anderes Import Directory verwendet werden, resp. soll im LOAD-Command
-# der abslute Pfad der Import-Datei verwendet werden können, so kann dies in der 
-# Lasche Settings angepasst (konfiguriert) werden (hier so gemacht - siehe unten)
+# Soll ein anderes Import Directory verwendet werden, resp. soll im LOAD-Command der
+# abslute Pfad der Import-Datei verwendet werden, so kann dies im Neo4j-Browser in
+# der Lasche Settings angepasst (konfiguriert) werden (hier so gemacht - siehe unten)
 # --> die Zeile dbms.directories.import=import auskommentieren 
 #
+
+
 
 #
 # In den folgenden zwei Schritten werden die Nodes und deren Abhängigkeiten erstellt
 # Dabei wird jeweils CREATE verwendet. Es wäre auch möglich anstelle von CREATE die 
-# Klausel MERGE zu verwenden (siehe Auszug aus Docu unten)
+# Klausel MERGE zu verwenden (siehe Auszug aus Neo4j-Dokumentation unten)
 # 
 #     The MERGE clause ensures that a pattern exists in the graph. 
 #     Either the pattern already exists, or it needs to be created.
