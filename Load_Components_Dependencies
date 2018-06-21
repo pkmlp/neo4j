@@ -1,0 +1,100 @@
+#
+# Laden der Komponenten und deren Abhängigkeiten anhand
+# der exportierten Daten-Tabellen (Views) aus Sherlock
+#
+# --> Component Catalog
+# --> Component Dependencies
+#
+#
+#
+# Die exportierten Daten-Tabellen müssen als CSV Dateien  
+# im Import Verzeichnis der Datenbank abgelegt werden
+# --> Import: The file URLs are relative to the import directory
+#
+#
+#
+# In der Neo4j Desktop Version ist das Import-Directory
+# --> /home/pkmlp/.config/Neo4j%20Desktop/Application/neo4jDatabases/database-902f7616-0421-4423-82d3-b4df46975ad3/installation-3.3.4/import/
+# --> Siehe Neo4j Browser Fenster 
+#     --> Lasche Logs     : Directories in use zeigt u.a. das Import Directory an
+#     --> Lasche Terminal : mit pwd das Directory der Datenbank anzeigen  
+#
+#
+# Soll ein anderes Import Directory verwendet werden, resp. soll im LOAD-Command
+# der abslute Pfad der Import-Datei verwendet werden können, so kann dies in der 
+# Lasche Settings angepasst (konfiguriert) werden (hier so gemacht - siehe unten)
+# --> die Zeile dbms.directories.import=import auskommentieren 
+#
+
+#
+# In den folgenden zwei Schritten werden die Nodes und deren Abhängigkeiten erstellt
+# Dabei wird jeweils CREATE verwendet. Es wäre auch möglich anstelle von CREATE die 
+# Klausel MERGE zu verwenden (siehe Auszug aus Docu unten)
+# 
+#     The MERGE clause ensures that a pattern exists in the graph. 
+#     Either the pattern already exists, or it needs to be created.
+#
+#     In this way, it’s helpful to think of MERGE as attempting a 
+#     MATCH on the pattern, and if no match is found, a CREATE of the pattern.
+#
+
+
+
+#
+# Schritt 1: Mit dem Export des ComponentCatalog aus Sherlock werden alle Components erfasst
+#              --> Import Pfad absolut (siehe oben)
+#
+CREATE CONSTRAINT ON (c:Complaint) ASSERT c.ComponentName IS UNIQUE;
+CREATE CONSTRAINT ON (c:Complaint) ASSERT c.ComponentID IS UNIQUE;
+LOAD CSV WITH HEADERS FROM "file:///media/sf_SharedFolder/ComponentCatalog.csv" AS csvLine FIELDTERMINATOR ';'
+CREATE (c:component { name: csvLine.ComponentName, 
+                     ComponentName: csvLine.ComponentName, 
+                     ComponentID: toInteger(csvLine.ComponentID),
+                     Monitoring: COALESCE(csvLine.Monitoring, 'NOT SET'),
+                     DomainIpPort: COALESCE(csvLine.DomainIpPort, 'NOT SET'),
+                     Protocol: COALESCE(csvLine.Protocol, 'NOT SET'),
+                     ServiceGroup: csvLine.ServiceGroup, 
+                     ServiceName: csvLine.ServiceName, 
+                     ServiceID: toInteger(csvLine.ServiceID)
+                   }
+      ) ;
+
+
+
+#
+# Schritt 2: Mit dem Export der ComponentDependencies aus Sherlock werden alle Abhängigkeiten erfasst
+#              --> Import Pfad absolut (siehe oben)
+#
+LOAD CSV WITH HEADERS FROM "file:///media/sf_SharedFolder/ComponendDependencies.csv" AS csvLine FIELDTERMINATOR ';'
+MATCH (a:component { ComponentID: toInteger(csvLine.SolutionID) })
+MATCH (b:component { ComponentID: toInteger(csvLine.DependsOnID) })
+CREATE (a)-[:DEPENDS_ON {title:csvLine.Title}]->(b);
+
+
+
+#
+# Schritt 3: (zur Verfikation) Anzeigen der Komponenten und deren Abhängigkeiten des IT Shop
+#
+match (n:component {ServiceName:"IT Shop" }) return n
+
+
+
+#
+# Schritt n: Anzeigen von Components
+#
+#
+
+match(c:Component) return c
+
+match (c:Component)
+where c.ServiceName CONTAINS 'Net'
+return c;
+
+match (c:Component)
+where c.ServiceName STARTS WITH 'Net'
+return c;
+
+match (c:Component)
+where c.ServiceName ENDS WITH 'Net'
+return c;
+
