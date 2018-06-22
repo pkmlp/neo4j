@@ -9,6 +9,16 @@ MATCH(n) DETACH DELETE n
 
 
 
+//CREATE CONSTRAINT ComponentID
+CREATE CONSTRAINT ON (c:Complaint) ASSERT c.ComponentID IS UNIQUE
+
+
+
+//CREATE CONSTRAINT ComponentName
+CREATE CONSTRAINT ON (c:Complaint) ASSERT c.ComponentName IS UNIQUE
+
+
+
 //LOAD COMPONENTS
 LOAD CSV WITH HEADERS FROM "file:///media/sf_SharedFolder/ComponentCatalog.csv" AS csvLine FIELDTERMINATOR ';'
 CREATE (c:component { name: csvLine.ComponentName, 
