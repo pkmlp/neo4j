@@ -1,0 +1,69 @@
+
+//CLEAR BROWSER
+:clear
+
+
+
+//DELETE ALL
+MATCH(n) DETACH DELETE n
+
+
+
+//LOAD COMPONENTS
+LOAD CSV WITH HEADERS FROM "file:///media/sf_SharedFolder/ComponentCatalog.csv" AS csvLine FIELDTERMINATOR ';'
+CREATE (c:component { name: csvLine.ComponentName, 
+                     ComponentName: csvLine.ComponentName, 
+                     ComponentID: toInteger(csvLine.ComponentID),
+                     Monitoring: COALESCE(csvLine.Monitoring, 'NOT SET'),
+                     DomainIpPort: COALESCE(csvLine.DomainIpPort, 'NOT SET'),
+                     Protocol: COALESCE(csvLine.Protocol, 'NOT SET'),
+                     ServiceGroup: csvLine.ServiceGroup, 
+                     ServiceName: csvLine.ServiceName, 
+                     ServiceID: toInteger(csvLine.ServiceID)
+                   }
+      ) ;
+
+
+
+//LOAD DEPENDENCIES
+LOAD CSV WITH HEADERS FROM "file:///media/sf_SharedFolder/ComponendDependencies.csv" AS csvLine FIELDTERMINATOR ';'
+MATCH (a:component { ComponentID: toInteger(csvLine.SolutionID) })
+MATCH (b:component { ComponentID: toInteger(csvLine.DependsOnID) })
+CREATE (a)-[:DEPENDS_ON {title:csvLine.Title}]->(b);
+
+
+
+//SHOW ALL
+MATCH(n) RETURN n
+
+
+
+//SHOW IT SHOP
+MATCH (n:component {ServiceName:"IT Shop" }) RETURN n
+
+
+
+//SHOW POLYBOX
+MATCH (n:component {ServiceName:"Polybox" }) RETURN n
+
+
+
+//SHOW LTS
+MATCH (c:component)
+WHERE c.ServiceName CONTAINS 'LTS'
+return c;
+
+
+
+//SHOW CDS
+MATCH (c:component)
+WHERE c.ServiceName CONTAINS 'CDS'
+return c;
+
+
+
+//SHOW Backup und Restore
+MATCH (n:component {ServiceName:"Backup und Restore" }) RETURN n
+
+
+
