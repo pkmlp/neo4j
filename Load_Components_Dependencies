@@ -67,7 +67,7 @@ CREATE (c:component { name: csvLine.ComponentName,
 # Schritt 2: Mit dem Export der ComponentDependencies aus Sherlock werden alle Abhängigkeiten erfasst
 #              --> Import Pfad absolut (siehe oben)
 #
-LOAD CSV WITH HEADERS FROM "file:///media/sf_SharedFolder/ComponendDependencies.csv" AS csvLine FIELDTERMINATOR ';'
+LOAD CSV WITH HEADERS FROM "file:///media/sf_SharedFolder/ComponentDependencies.csv" AS csvLine FIELDTERMINATOR ';'
 MATCH (a:component { ComponentID: toInteger(csvLine.SolutionID) })
 MATCH (b:component { ComponentID: toInteger(csvLine.DependsOnID) })
 CREATE (a)-[:DEPENDS_ON {title:csvLine.Title}]->(b);
