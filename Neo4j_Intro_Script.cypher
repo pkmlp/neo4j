@@ -8,6 +8,9 @@
 //   - call apoc.cypher.runFile("/home/pkmlp/gitRepos/neo4j/Neo4j_Intro_Script.cypher")
 //
 //
+// Sehr viele nützliche Procedures:
+//   - https://neo4j-contrib.github.io/neo4j-apoc-procedures/
+//
 
 
 // Löschen der ganzen Datenbank
