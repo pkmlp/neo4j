@@ -1,5 +1,10 @@
 # Neo4j
 
+## Neo4j Intro
+
+Eine kleine Einführung in Neo4j 
+
+
 ## Neo4j zur Darstellung der Abhängigkeiten der Service-Komponenten.
 
 Um die Service-Komponenten und deren Abhängigkeiten aus Sherlock 
