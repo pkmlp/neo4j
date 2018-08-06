@@ -1,0 +1,118 @@
+# Neo4j Intro
+
+## Ein kleines Beispiel zum Einstieg in Neo4j
+
+Neulich im Tram wurde ich mal wieder ungewollt Zeuge eines Gespräches, 
+das in etwa wie folgt lief:
+
+" Also der Theo steht komplett auf Lea. Dabei hasst die ihn, steht aber total auf Hugo. 
+Der ist aber bereits mit Marlies liiert. Das hindert ihn aber nicht, ungeniert mit Doris
+zu flirten, dabei ist doch Doris mit Peter liiert, obwohl der ständig mit Marlies flirtet. 
+Aber Marlies ist auch kein Kind von Traurigkeit und flirtet ungeniert mit Andreas, 
+Hugos bestem Freund. "
+
+So ging das dann noch ewig weiter und ich wunderte mich, wie man das alles im Kopf behalten 
+kann, resp. wie man da den Durchblick erlangen kann.
+
+Das einzige was mir in den Sinn kam: 
+
+" Das wäre doch was für eine Concept-Map oder eine Graphen-Datenbank ". 
+
+
+
+Aufgabe 1:
+
+- Erstelle eine Concept-Map mit dem oben beschriebenen "Sachverhalt"
+
+
+
+Aufgabe 2:
+
+- Erstelle eine Graphen-Datenbank mit dem oben beschriebenen "Sachverhalt"
+
+
+
+// Löschen der ganzen Datenbank
+match (n)
+detach delete n
+
+
+//CREATE CONSTRAINT Name
+CREATE CONSTRAINT ON (c:Complaint) ASSERT c.name IS UNIQUE
+
+
+// Erstellen einer Personen und diese gleich anzeigen 
+create (x:Person {name:"Theo"})
+return x
+
+
+// Erstellen aller Personen 
+create (:Person {name:"Theo"})
+create (:Person {name:"Lea"})
+create (:Person {name:"Hugo"})
+create (:Person {name:"Marlies"})
+create (:Person {name:"Doris"})
+create (:Person {name:"Peter"})
+create (:Person {name:"Andreas"})
+
+
+// Erstellen der Beziehungen der Personen zueinander
+
+Currently the Neo4j browser does not support executing multiple statement 
+Cypher queries so you can either cut and paste your statements one at time 
+or use something like neo4j-shell
+
+match (x:Person {name:"Theo"})
+match (y:Person {name:"Lea"})
+create (x) – [:steht_auf] -> (y)
+
+match (x:Person {name:"Lea"})
+match (y:Person {name:"Theo"})
+create (x) – [:hasst] -> (y)
+
+match (x:Person {name:"Lea"})
+match (y:Person {name:"Hugo"})
+create (x) – [:steht_auf] -> (y)
+
+match (x:Person {name:"Hugo"})
+match (y:Person {name:"Marlies"})
+create (x) – [:liiert] -> (y)
+
+match (x:Person {name:"Marlies"})
+match (y:Person {name:"Hugo"})
+create (x) – [:liiert] -> (y)
+
+match (x:Person {name:"Hugo"})
+match (y:Person {name:"Doris"})
+create (x) – [:flirtet] -> (y)
+
+match (x:Person {name:"Doris"})
+match (y:Person {name:"Peter"})
+create (x) – [:liiert] -> (y)
+
+match (x:Person {name:"Peter"})
+match (y:Person {name:"Doris"})
+create (x) – [:liiert] -> (y)
+
+match (x:Person {name:"Peter"})
+match (y:Person {name:"Marlies"})
+create (x) – [:flirtet] -> (y)
+
+match (x:Person {name:"Marlies"})
+match (y:Person {name:"Andreas"})
+create (x) – [:flirtet] -> (y)
+
+match (x:Person {name:"Andreas"})
+match (y:Person {name:"Hugo"})
+create (x) – [:bester_Freund] -> (y)
+
+
+// wer hasst wen
+match (x) – [:hasst] -> (y)
+return  x,y
+
+
+// wer ist mit wem liiert
+match (x) – [:liiert] -> (y)
+return  x,y
+
