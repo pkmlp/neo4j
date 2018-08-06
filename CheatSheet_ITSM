@@ -30,8 +30,8 @@ CREATE (c:component { name: csvLine.ComponentName,
                      ServiceGroup: csvLine.ServiceGroup, 
                      ServiceName: csvLine.ServiceName, 
                      ServiceID: toInteger(csvLine.ServiceID)
-                   }
-      ) ;
+                    }
+       ) ;
 
 
 
@@ -72,8 +72,35 @@ return c;
 
 
 
+//SHOW NAS
+MATCH (c:component)
+WHERE c.ServiceName CONTAINS 'NAS'
+return c;
+
+
+
 //SHOW Backup und Restore
 MATCH (n:component {ServiceName:"Backup und Restore" }) RETURN n
 
+
+
+//SHOW Videoproduktion
+MATCH (c:component)
+WHERE c.ServiceName CONTAINS 'Videoproduktion'
+return c;
+
+
+
+//SHOW Videodistribution
+MATCH (c:component)
+WHERE c.ServiceName CONTAINS 'Videodistribution'
+return c;
+
+
+
+//SHOW MMS Ausleihe
+MATCH (c:component)
+WHERE c.ServiceName CONTAINS 'Ausleihe'
+return c;
 
 
