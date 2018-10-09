@@ -103,4 +103,8 @@ MATCH (c:component)
 WHERE c.ServiceName CONTAINS 'Ausleihe'
 return c;
 
+//Show Komponenten anhand Beziehung
+MATCH (n) -[r]-> (m)
+WHERE r.title contains"Videodistribution"
+RETURN n,m,r
 

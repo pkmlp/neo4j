@@ -206,3 +206,7 @@ match (s:Service)
 where s.ServiceName ENDS WITH 'Net'
 return s;
 
+//Show Komponenten anhand Beziehung
+MATCH (n) -[r]-> (m)
+WHERE r.title contains"Videodistribution"
+RETURN n,m,r
