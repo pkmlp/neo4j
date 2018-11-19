@@ -1,0 +1,14 @@
+Starten des Neo4j Community servers:
+
+> sudo service neo4j start
+
+
+Mit Neo4j Communits Server verbinden: 
+
+Im Broswer 127.0.0.1:7474
+
+
+Starten der Graphileon App
+
+> sudo /opt/Graphileon/Graphileon 
+
