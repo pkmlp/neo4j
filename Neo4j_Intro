@@ -140,3 +140,5 @@ MATCH (p1:Person {name:"Peter"})-[r]-(p2:Person {name:"Marlies"})
 SET r.grad = "heftig"
 RETURN p1,r,p2
 
+
+
