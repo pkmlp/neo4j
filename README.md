@@ -32,4 +32,3 @@ nach Neo4j zu kriegen, wie folgt vorgehen:
   Die CSV-Dateien ins das Import-Verzeichnis von Neo4j ablegen.
 
 Beachte unbedingt auch die Datei Load_Components_Dependencies in diesem Git-Repo.
-
