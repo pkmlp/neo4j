@@ -76,4 +76,3 @@ create (x) – [:flirtet] -> (y);
 match (x:Person {name:"Andreas"})
 match (y:Person {name:"Hugo"})
 create (x) – [:bester_Freund] -> (y);
-
