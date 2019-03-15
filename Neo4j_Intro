@@ -107,12 +107,36 @@ match (y:Person {name:"Hugo"})
 create (x) – [:bester_Freund] -> (y)
 
 
+// suchen einer Person
+MATCH (p:Person)
+WHERE p.name CONTAINS 'Peter'
+return p
+
 // wer hasst wen
 match (x) – [:hasst] -> (y)
 return  x,y
 
-
 // wer ist mit wem liiert
 match (x) – [:liiert] -> (y)
 return  x,y
+
+// hinzufügen eines attributes zu einem node
+MATCH (p:Person {name: 'Peter'})
+SET p.jahrgang = 1960
+RETURN p
+
+// ändern eines attributes eines node
+MATCH (p:Person {name: 'Peter'})
+SET p.jahrgang = 1999
+RETURN p
+
+// loeschen eines attributes eines node
+MATCH (p:Person {name: 'Peter' }) 
+REMOVE p.jahrgang 
+RETURN p
+
+// hinzufügen eines attributes zu einer relationship
+MATCH (p1:Person {name:"Peter"})-[r]-(p2:Person {name:"Marlies"})
+SET r.grad = "heftig"
+RETURN p1,r,p2
 
