@@ -6,7 +6,7 @@
 //
 // Ausführen des Scriptes mit:
 //   - call apoc.cypher.runFile("/home/pkmlp/gitRepos/neo4j/Neo4j_Intro_Script.cypher")
-//   - call apoc.cypher.runFile("d:\\gitRepos\\neo4j\\Neo4j_Intro_Script.cypher")
+//   - call apoc.cypher.runFile("d:\\gitRepos\\neo4j\\Neo4j_Intro_Script.cypher") 
 //
 //
 // Sehr viele nützliche Procedures:
